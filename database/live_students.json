@@ -1,0 +1,62 @@
+[
+  {
+    "id": 101,
+    "name": "Aarav Sharma",
+    "age": 20,
+    "email": "aarav.sharma@example.edu",
+    "course": "Computer Science",
+    "marks": 94.5,
+    "semester": 4,
+    "grade": "A",
+    "academicStanding": "Dean's List (Honors)",
+    "dbSource": "MySQL (Port 3306)"
+  },
+  {
+    "id": 102,
+    "name": "Diya Patel",
+    "age": 19,
+    "email": "diya.patel@example.edu",
+    "course": "Information Technology",
+    "marks": 86,
+    "semester": 2,
+    "grade": "B",
+    "academicStanding": "Good Standing",
+    "dbSource": "MySQL (Port 3306)"
+  },
+  {
+    "id": 103,
+    "name": "Rohan Verma",
+    "age": 21,
+    "email": "rohan.verma@example.edu",
+    "course": "Electronics Engineering",
+    "marks": 74.25,
+    "semester": 6,
+    "grade": "C",
+    "academicStanding": "Good Standing",
+    "dbSource": "MySQL (Port 3306)"
+  },
+  {
+    "id": 104,
+    "name": "Sneha Mukherjee",
+    "age": 20,
+    "email": "sneha.m@example.edu",
+    "course": "Computer Science",
+    "marks": 65.5,
+    "semester": 4,
+    "grade": "D",
+    "academicStanding": "Good Standing",
+    "dbSource": "MySQL (Port 3306)"
+  },
+  {
+    "id": 105,
+    "name": "Vikram Malhotra",
+    "age": 22,
+    "email": "vikram.m@example.edu",
+    "course": "Mechanical Engineering",
+    "marks": 52,
+    "semester": 8,
+    "grade": "F",
+    "academicStanding": "Academic Warning / Probation",
+    "dbSource": "MySQL (Port 3306)"
+  }
+]

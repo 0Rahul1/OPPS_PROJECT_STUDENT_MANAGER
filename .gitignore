@@ -1,0 +1,44 @@
+# Environment and Credentials (CRITICAL: Never commit passwords)
+.env
+*.env.local
+
+# Build output and CMake artifacts
+build/
+bin/
+out/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Compiled binaries and object files
+*.exe
+*.obj
+*.o
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+*.exp
+
+# IDE specific files
+.vscode/
+.vs/
+.idea/
+*.suo
+*.user
+*.userosv
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# Temporary and log files
+*.log
+*.tmp
+*.bak
+*.swp
+*~
