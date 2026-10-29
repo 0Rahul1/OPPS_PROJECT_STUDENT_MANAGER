@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Academic Project File (8 Pages)</title>
+    <style>
+        /* A4 Page Formatting and Print Setup */
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: #111827;
+            background-color: #f3f4f6;
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .no-print-bar {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .btn-print {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        .btn-print:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .page-container {
+            max-width: 210mm;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            height: 297mm;
+            padding: 2.2cm 2cm 2cm 2cm;
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .page-border {
+            border: 2px solid #1e3a8a;
+            position: absolute;
+            inset: 0.8cm;
+            pointer-events: none;
+        }
+        .page-border-double {
+            border: 1px solid #1e3a8a;
+            position: absolute;
+            inset: 0.9cm;
+            pointer-events: none;
+        }
+
+        .page-header-text {
+            font-size: 8.5pt;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 4px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .page-footer {
+            font-size: 9pt;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 6px;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        h1, h2, h3, h4 {
+            color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 16pt;
+            border-bottom: 2px solid #0284c7;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            color: #1e3a8a;
+        }
+        h3 {
+            font-size: 12pt;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            color: #0369a1;
+        }
+        p {
+            font-size: 10.5pt;
+            text-align: justify;
+            margin-bottom: 8px;
+        }
+        ul, ol {
+            font-size: 10.5pt;
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 9.5pt;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            color: #0f172a;
+        }
+
+        .code-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 3px solid #0284c7;
+            padding: 8px 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 8.5pt;
+            line-height: 1.35;
+            margin: 8px 0;
+            white-space: pre-wrap;
+        }
+
+        .diagram-box {
+            background-color: #f8fafc;
+            border: 1px dashed #94a3b8;
+            padding: 10px;
+            margin: 8px 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 8pt;
+            line-height: 1.3;
+        }
+
+        /* Cover Page Specials */
+        .cover-page {
+            text-align: center;
+            justify-content: space-around;
+            padding: 3cm 2.5cm;
+        }
+        .cover-inst {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cover-dept {
+            font-size: 13pt;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 4px;
+        }
+        .cover-title-box {
+            margin: 2rem 0;
+            border-top: 3px double #0284c7;
+            border-bottom: 3px double #0284c7;
+            padding: 1.5rem 1rem;
+        }
+        .cover-title {
+            font-size: 22pt;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.02em;
+        }
+        .cover-subtitle {
+            font-size: 11pt;
+            color: #0369a1;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .cover-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: left;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            font-size: 10.5pt;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+            .no-print-bar {
+                display: none !important;
+            }
+            .page-container {
+                margin: 0;
+                gap: 0;
+                max-width: none;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Print Toolbar (Hidden during actual print) -->
+    <div class="no-print-bar">
+        <div>
+            <strong>Student Management System — Project File (8 Pages Ready)</strong>
+            <span style="font-size: 0.85rem; color: #94a3b8; margin-left: 1rem;">Set destination to "Save as PDF" & Paper Size to "A4"</span>
+        </div>
+        <button class="btn-print" onclick="window.print()">🖨️ Print to PDF (8 Pages)</button>
+    </div>
+
+    <div class="page-container">
+
+        <!-- ===================================================================
+             PAGE 1: TITLE & COVER PAGE
+             =================================================================== -->
+        <section class="page cover-page">
+            <div class="page-border"></div>
+            <div class="page-border-double"></div>
+
+            <div>
+                <div class="cover-inst">[INSTITUTION NAME PLACEHOLDER]</div>
+                <div class="cover-dept">DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING</div>
+                <div style="font-size: 9.5pt; color: #64748b; margin-top: 4px;">Approved by AICTE, Affiliated to [UNIVERSITY NAME PLACEHOLDER]</div>
+            </div>
+
+            <div class="cover-title-box">
+                <div style="font-size: 11pt; font-weight: 600; color: #64748b; margin-bottom: 6px;">A MINI-PROJECT REPORT / PRACTICAL FILE ON</div>
+                <div class="cover-title">STUDENT MANAGEMENT SYSTEM</div>
+                <div class="cover-subtitle">Implementation in Modern C++17 with Polyglot MySQL &amp; MongoDB Persistence</div>
+            </div>
+
+            <div style="font-size: 10.5pt; color: #334155;">
+                <strong>Course:</strong> Object-Oriented Programming &amp; DBMS Laboratory<br>
+                <strong>Academic Session:</strong> 2026 – 2027
+            </div>
+
+            <div class="cover-meta-grid">
+                <div>
+                    <strong style="color: #1e3a8a; text-decoration: underline;">SUBMITTED BY:</strong><br><br>
+                    <strong>Name:</strong> [STUDENT_NAME_PLACEHOLDER]<br>
+                    <strong>University Roll No:</strong> [ROLL_NO_PLACEHOLDER]<br>
+                    <strong>Registration No:</strong> [REG_NO_PLACEHOLDER]<br>
+                    <strong>Semester / Year:</strong> [SEMESTER_YEAR_PLACEHOLDER]
+                </div>
+                <div>
+                    <strong style="color: #1e3a8a; text-decoration: underline;">UNDER THE GUIDANCE OF:</strong><br><br>
+                    <strong>Faculty Mentor:</strong> [FACULTY_NAME_PLACEHOLDER]<br>
+                    <strong>Designation:</strong> [DESIGNATION_PLACEHOLDER]<br>
+                    <strong>Department:</strong> Computer Science &amp; Eng.<br>
+                    <strong>Submission Date:</strong> October 2026
+                </div>
+            </div>
+
+            <div style="font-size: 9pt; color: #64748b;">
+                Department of Computer Science &amp; Engineering &bull; [INSTITUTION_NAME_PLACEHOLDER]
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 2: CERTIFICATE & ACKNOWLEDGEMENT
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; Practical Record</span>
+                <span>Page 2 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>CERTIFICATE OF ORIGINALITY</h2>
+                <p>
+                    This is to certify that the mini-project work entitled <strong>"Student Management System (C++ OOP + MySQL &amp; MongoDB)"</strong> submitted by <strong>[STUDENT_NAME_PLACEHOLDER]</strong>, bearing University Roll Number <strong>[ROLL_NO_PLACEHOLDER]</strong>, is an authentic record of academic work carried out under my supervision in partial fulfillment of the requirements for the award of the degree of <strong>[DEGREE_NAME_PLACEHOLDER]</strong> in <strong>Computer Science &amp; Engineering</strong> during the academic session <strong>2026–2027</strong>.
+                </p>
+                <p>
+                    The results embodied in this report have been verified and satisfy the curriculum standards set forth by the university.
+                </p>
+
+                <br><br>
+                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 1.5rem;">
+                    <div>
+                        ____________________________________<br>
+                        <strong>[FACULTY_NAME_PLACEHOLDER]</strong><br>
+                        Project Supervisor / Mentor<br>
+                        Dept. of Computer Science &amp; Eng.
+                    </div>
+                    <div>
+                        ____________________________________<br>
+                        <strong>[HOD_NAME_PLACEHOLDER]</strong><br>
+                        Head of Department (HOD)<br>
+                        Dept. of Computer Science &amp; Eng.
+                    </div>
+                </div>
+
+                <br><br>
+                <div style="text-align: left; margin-top: 1.5rem;">
+                    ____________________________________<br>
+                    <strong>External Examiner (Viva Voce)</strong><br>
+                    Date of Examination: _____ / _____ / 2026
+                </div>
+
+                <br><br>
+                <h2>ACKNOWLEDGEMENT</h2>
+                <p>
+                    I express my sincere gratitude to my supervisor, <strong>[FACULTY_NAME_PLACEHOLDER]</strong>, for their invaluable advice and continuous mentorship throughout the architectural design and implementation phases of this project.
+                </p>
+                <p>
+                    I also extend my thanks to <strong>[HOD_NAME_PLACEHOLDER]</strong>, Head of Department, and our respected Principal, <strong>[PRINCIPAL_NAME_PLACEHOLDER]</strong>, for providing computational infrastructure and laboratory facilities. Lastly, I thank my peers and family for their unwavering encouragement.
+                </p>
+
+                <div style="text-align: right; margin-top: 1.5rem;">
+                    <strong>[STUDENT_NAME_PLACEHOLDER]</strong><br>
+                    Roll No: [ROLL_NO_PLACEHOLDER]
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>Academic Record &bull; Certificate &amp; Acknowledgement</span>
+                <span>Page 2</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 3: ABSTRACT, PROBLEM STATEMENT & OBJECTIVES
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; Project Overview</span>
+                <span>Page 3 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>1. ABSTRACT &amp; PROBLEM STATEMENT</h2>
+
+                <h3>1.1 Executive Abstract</h3>
+                <p>
+                    The <strong>Student Management System</strong> is an enterprise-patterned software solution built in <strong>Modern C++ (C++17)</strong> to handle academic student profiles, grade analytics, and persistence across both a relational database (<strong>MySQL Server</strong>) and a document store (<strong>MongoDB</strong>). Departing from simplistic in-memory or text-file academic projects, this project implements the <strong>Abstract Repository Pattern (<code>IStudentRepository</code>)</strong>, prepared statements with bound parameters, and bulletproof console stream validation. The system models domain entities using <strong>Abstraction, Multilevel Inheritance, Encapsulation, and Runtime Polymorphism</strong>.
+                </p>
+
+                <h3>1.2 Problem Statement &amp; Motivation</h3>
+                <p>
+                    Conventional college projects frequently store student profiles in raw arrays or text files. This introduces severe limitations:
+                </p>
+                <ul>
+                    <li><strong>Lack of Persistence:</strong> Volatile memory loses all modified data upon application exit.</li>
+                    <li><strong>Absence of Constraints:</strong> Text files cannot enforce primary keys, unique email constraints, or valid score ranges (0–100).</li>
+                    <li><strong>SQL Injection Vulnerabilities:</strong> Ad-hoc string concatenations in database queries jeopardize data integrity.</li>
+                    <li><strong>Stream Freezes:</strong> Inputting character strings into standard numeric console streams (<code>std::cin</code>) corrupts input buffers and induces infinite crash loops.</li>
+                </ul>
+
+                <h3>1.3 Project Objectives</h3>
+                <ol>
+                    <li><strong>Architectural Separation:</strong> Construct a 4-tier layered architecture separating Presentation, Entity Domain, and Data Access.</li>
+                    <li><strong>Production Database Integration:</strong> Connect directly to MySQL Server on port 3306 and MongoDB on port 27017.</li>
+                    <li><strong>SQL Injection Immunity:</strong> Enforce parameterized prepared statements (<code>?</code> placeholders) for all user-supplied data.</li>
+                    <li><strong>Automated Academic Standing:</strong> Automatically calculate letter grades (A, B, C, D, F) and academic standings (Dean's List, Good Standing, Probation) from percentage marks.</li>
+                    <li><strong>Polyglot Flexibility:</strong> Dynamically toggle between relational and document databases at runtime via an abstract interface.</li>
+                </ol>
+            </div>
+
+            <div class="page-footer">
+                <span>Abstract, Problem Statement &amp; Objectives</span>
+                <span>Page 3</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 4: SRS & SYSTEM ARCHITECTURE
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; System Architecture</span>
+                <span>Page 4 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>2. SYSTEM SPECIFICATIONS &amp; ARCHITECTURE</h2>
+
+                <h3>2.1 Software &amp; Hardware Requirements</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Minimum Requirement</th>
+                            <th>Target / Evaluated Setup</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Operating System</strong></td>
+                            <td>Windows 10 / Linux 64-bit</td>
+                            <td>Windows 11 (x64)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compiler &amp; Standard</strong></td>
+                            <td>C++17 Compliant Compiler</td>
+                            <td>MinGW-w64 GCC 16.2 / MSVC v143</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Build Tool</strong></td>
+                            <td>CMake 3.16+</td>
+                            <td>CMake 4.4.4 &amp; Ninja / Batch Scripts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relational Database</strong></td>
+                            <td>MySQL Community Server 8.0+</td>
+                            <td>MySQL 8.4 LTS (TCP Port 3306)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NoSQL Database</strong></td>
+                            <td>MongoDB 6.0+</td>
+                            <td>MongoDB Server 7.0 (TCP Port 27017)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Live Web Engine</strong></td>
+                            <td>Node.js 18+</td>
+                            <td>Node.js v24.19 (Zero External npm Dependencies)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>2.2 Layered System Architecture</h3>
+                <div class="diagram-box">
++---------------------------------------------------------------------------------------+
+|                                  Presentation Layer                                   |
+|       (Menu.cpp - Terminal UI &amp; server.js - Interactive Web Dashboard on Port 3000)   |
++---------------------------------------------------------------------------------------+
+                                           │
+                                           ▼
++---------------------------------------------------------------------------------------+
+|                         Domain Entity Layer (OOP Hierarchy)                           |
+|       Person (Abstract Base) ──► Student (Derived) ──► UndergraduateStudent           |
++---------------------------------------------------------------------------------------+
+                                           │
+                                           ▼
++---------------------------------------------------------------------------------------+
+|                    Data Access Layer Interface (IStudentRepository)                   |
+|               Pure Abstract Interface: add, getById, getAll, update, delete           |
++---------------------------------------------------------------------------------------+
+                        │                                           │
+                        ▼ (Implements)                              ▼ (Implements)
++-----------------------------------------------+   +-----------------------------------+
+|      StudentRepository (MySQL Backend)        |   |   MongoStudentRepository (MongoDB)|
+|  Prepared Statements, Port 3306, JDBC API     |   |   BSON Documents, Port 27017      |
++-----------------------------------------------+   +-----------------------------------+
+                        │                                           │
+                        ▼                                           ▼
++-----------------------------------------------+   +-----------------------------------+
+|              MySQL Server Database            |   |          MongoDB Database         |
+|         (student_management.students)         |   |    (student_management.students)  |
++-----------------------------------------------+   +-----------------------------------+
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>SRS &amp; System Architectural Model</span>
+                <span>Page 4</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 5: OBJECT-ORIENTED PROGRAMMING IMPLEMENTATION
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; OOP Design</span>
+                <span>Page 5 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>3. OBJECT-ORIENTED PROGRAMMING IMPLEMENTATION</h2>
+
+                <h3>3.1 Abstraction</h3>
+                <p>
+                    Implemented via the <strong>Abstract Base Class `Person`</strong> (<code>src/Person.h</code>). It defines common human attributes (<code>m_id</code>, <code>m_name</code>, <code>m_email</code>) and enforces pure virtual function contracts:
+                </p>
+                <div class="code-block">virtual void displayDetails() const = 0;
+virtual std::string getRole() const = 0;</div>
+
+                <h3>3.2 Encapsulation</h3>
+                <p>
+                    Member variables are declared <code>protected</code> or <code>private</code>. Data mutators validate integrity before assigning values, throwing exceptions or returning false on invalid ranges:
+                </p>
+                <ul>
+                    <li><code>Student::setAge(int age)</code> enforces \(15 \le \text{age} \le 100\).</li>
+                    <li><code>Student::setMarks(double marks)</code> enforces \(0.00 \le \text{marks} \le 100.00\).</li>
+                    <li><code>Person::setEmail(string email)</code> validates format against standard RFC regex patterns.</li>
+                </ul>
+
+                <h3>3.3 Multilevel Inheritance Hierarchy</h3>
+                <div class="diagram-box">
+[Person]                 (Abstract Base: ID, Name, Email, Pure Virtuals)
+   ▲
+   │ (Single Inheritance)
+[Student]                (Derived: Age, Course, Marks, Letter Grade, Automated Evaluation)
+   ▲
+   │ (Multilevel Inheritance)
+[UndergraduateStudent]   (Specialized: Semester [1-8], Academic Standing, Honors Logic)
+                </div>
+
+                <h3>3.4 Runtime Polymorphism &amp; Virtual Destructors</h3>
+                <p>
+                    Dynamic dispatch is achieved through the C++ <strong>vtable (virtual table)</strong>. When invoking <code>displayDetails()</code> on base pointers <code>std::unique_ptr&lt;Student&gt;</code>, the runtime dispatches the call to the specialized <code>UndergraduateStudent</code> implementation. Base classes declare <code>virtual ~Person() = default;</code> to prevent memory leaks during polymorphic deallocations.
+                </p>
+
+                <h3>3.5 Dependency Inversion Principle (SOLID)</h3>
+                <p>
+                    High-level UI modules (<code>Menu</code>) depend strictly on the abstract interface <code>IStudentRepository</code>, enabling dynamic runtime switching between MySQL and MongoDB backends without altering UI logic.
+                </p>
+            </div>
+
+            <div class="page-footer">
+                <span>OOP Paradigms &amp; Class Hierarchy</span>
+                <span>Page 5</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 6: DATABASE DESIGN & SCHEMAS
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; Database Design</span>
+                <span>Page 6 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>4. DATABASE DESIGN &amp; SCHEMAS</h2>
+
+                <h3>4.1 Relational Schema (MySQL Database)</h3>
+                <p>
+                    The relational backend utilizes the database <code>student_management</code> with the <code>students</code> table managed under the <strong>InnoDB</strong> engine to ensure full ACID transaction compliance.
+                </p>
+
+                <h4>Data Dictionary:</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Data Type</th>
+                            <th>Constraint</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>student_id</code></td>
+                            <td>INT</td>
+                            <td>PRIMARY KEY</td>
+                            <td>Unique institutional identifier</td>
+                        </tr>
+                        <tr>
+                            <td><code>name</code></td>
+                            <td>VARCHAR(100)</td>
+                            <td>NOT NULL</td>
+                            <td>Student full legal name</td>
+                        </tr>
+                        <tr>
+                            <td><code>age</code></td>
+                            <td>INT</td>
+                            <td>CHECK (15–100)</td>
+                            <td>Student age in completed years</td>
+                        </tr>
+                        <tr>
+                            <td><code>course</code></td>
+                            <td>VARCHAR(100)</td>
+                            <td>NOT NULL</td>
+                            <td>Enrolled academic program / degree</td>
+                        </tr>
+                        <tr>
+                            <td><code>email</code></td>
+                            <td>VARCHAR(150)</td>
+                            <td>UNIQUE, NOT NULL</td>
+                            <td>Unique institutional email address</td>
+                        </tr>
+                        <tr>
+                            <td><code>marks</code></td>
+                            <td>DECIMAL(5,2)</td>
+                            <td>CHECK (0–100)</td>
+                            <td>Aggregate percentage score</td>
+                        </tr>
+                        <tr>
+                            <td><code>semester</code></td>
+                            <td>INT</td>
+                            <td>CHECK (1–8)</td>
+                            <td>Current active semester</td>
+                        </tr>
+                        <tr>
+                            <td><code>created_at</code></td>
+                            <td>TIMESTAMP</td>
+                            <td>DEFAULT CURRENT_TIMESTAMP</td>
+                            <td>Record creation audit timestamp</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4.2 Document NoSQL Schema (MongoDB Collection)</h3>
+                <p>
+                    In MongoDB, records are persisted in the <code>students</code> collection with strict validation enforced via the <code>$jsonSchema</code> operator:
+                </p>
+                <div class="code-block">db.createCollection("students", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["student_id", "name", "email", "age", "course", "marks", "semester"],
+      properties: {
+        student_id: { bsonType: ["int", "long"], description: "Unique integer ID" },
+        email:      { bsonType: "string", pattern: "^.+@.+\\..+$" },
+        age:        { bsonType: "int", minimum: 15, maximum: 100 },
+        marks:      { bsonType: ["double", "int"], minimum: 0.0, maximum: 100.0 },
+        semester:   { bsonType: "int", minimum: 1, maximum: 8 }
+      }
+    }
+  }
+});
+db.students.createIndex({ student_id: 1 }, { unique: true });
+db.students.createIndex({ email: 1 }, { unique: true });</div>
+            </div>
+
+            <div class="page-footer">
+                <span>Relational &amp; Document Database Schemas</span>
+                <span>Page 6</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 7: IMPLEMENTATION & SECURITY ALGORITHMS
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; Implementation</span>
+                <span>Page 7 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>5. CORE ALGORITHMS &amp; SECURITY MECHANISMS</h2>
+
+                <h3>5.1 Automated Grade Calculation Algorithm</h3>
+                <p>
+                    Evaluated inside <code>Student::computeGradeFromMarks(double marks)</code>:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Percentage Marks Range</th>
+                            <th>Awarded Grade</th>
+                            <th>Academic Standing Classification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>90.00% &ndash; 100.00%</td>
+                            <td><strong>A</strong> (Outstanding)</td>
+                            <td>Dean's List (Honors Standing)</td>
+                        </tr>
+                        <tr>
+                            <td>80.00% &ndash; 89.99%</td>
+                            <td><strong>B</strong> (Very Good)</td>
+                            <td>Good Standing</td>
+                        </tr>
+                        <tr>
+                            <td>70.00% &ndash; 79.99%</td>
+                            <td><strong>C</strong> (Good)</td>
+                            <td>Good Standing</td>
+                        </tr>
+                        <tr>
+                            <td>60.00% &ndash; 69.99%</td>
+                            <td><strong>D</strong> (Satisfactory)</td>
+                            <td>Good Standing</td>
+                        </tr>
+                        <tr>
+                            <td>0.00% &ndash; 59.99%</td>
+                            <td><strong>F</strong> (Fail)</td>
+                            <td>Academic Warning / Probation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>5.2 Prepared Statements (SQL Injection Immunity)</h3>
+                <p>
+                    The Data Access Layer executes SQL queries exclusively using bound parameter placeholders (<code>?</code>), preventing user inputs from executing as SQL code:
+                </p>
+                <div class="code-block">const std::string sql = "INSERT INTO students (student_id, name, age, course, "
+                        "email, marks, semester) VALUES (?, ?, ?, ?, ?, ?, ?)";
+std::unique_ptr&lt;sql::PreparedStatement&gt; pstmt(m_conn-&gt;prepareStatement(sql));
+pstmt-&gt;setInt(1, student.getId());
+pstmt-&gt;setString(2, student.getName());
+pstmt-&gt;setInt(3, student.getAge());
+pstmt-&gt;setString(4, student.getCourse());
+pstmt-&gt;setString(5, student.getEmail());
+pstmt-&gt;setDouble(6, student.getMarks());
+pstmt-&gt;setInt(7, student.getSemester());
+pstmt-&gt;executeUpdate();</div>
+
+                <h3>5.3 Bulletproof Stream Validation</h3>
+                <p>
+                    Console input errors are handled using stream state checks and buffer purges to prevent infinite loops:
+                </p>
+                <div class="code-block">if (std::cin.fail()) {
+    std::cin.clear(); // Reset stream state error bit
+    std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n'); // Purge buffer
+    std::cout &lt;&lt; "  [!] Invalid format. Please enter an integer.\n";
+}</div>
+            </div>
+
+            <div class="page-footer">
+                <span>Evaluation Logic &amp; Security Engineering</span>
+                <span>Page 7</span>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 8: TESTING, CONCLUSION & FUTURE SCOPE
+             =================================================================== -->
+        <section class="page">
+            <div class="page-border"></div>
+            <div class="page-header-text">
+                <span>Student Management System &bull; Verification &amp; Conclusion</span>
+                <span>Page 8 of 8</span>
+            </div>
+
+            <div class="content">
+                <h2>6. TESTING, CONCLUSION &amp; FUTURE SCOPE</h2>
+
+                <h3>6.1 System Verification &amp; Test Matrix</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Test Scenario</th>
+                            <th>Input Data</th>
+                            <th>Expected Behavior</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TC-01</strong></td>
+                            <td>Add Student (Valid)</td>
+                            <td>ID: 106, Marks: 92.5</td>
+                            <td>Persists row; Grade: A, Dean's List</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-02</strong></td>
+                            <td>Duplicate ID Rejection</td>
+                            <td>ID: 101 (Exists)</td>
+                            <td>Catches duplicate key; friendly error</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-03</strong></td>
+                            <td>Duplicate Email Rejection</td>
+                            <td>Existing email</td>
+                            <td>Catches unique key conflict; rejects</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-04</strong></td>
+                            <td>Age Range Bounds Check</td>
+                            <td>Age: 12 or 150</td>
+                            <td>Rejects; prompts valid range 15–100</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-05</strong></td>
+                            <td>Stream Recovery</td>
+                            <td>Enter string for ID</td>
+                            <td>Clears fail bit; no infinite loop</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-06</strong></td>
+                            <td>Search Student by ID</td>
+                            <td>ID: 101</td>
+                            <td>Retrieves &amp; formats polymorphically</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-07</strong></td>
+                            <td>Update &amp; Re-evaluation</td>
+                            <td>Marks: 52.0 &rarr; 82.0</td>
+                            <td>Grade recalculates F &rarr; B in database</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TC-08</strong></td>
+                            <td>Polyglot DB Switch</td>
+                            <td>Menu Option 7</td>
+                            <td>Switches backend MySQL &harr; MongoDB</td>
+                            <td><strong style="color: #16a34a;">PASS</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Conclusion &amp; Future Scope</h3>
+                <p>
+                    The <strong>Student Management System</strong> demonstrates how Object-Oriented C++ patterns directly bridge to enterprise Relational and NoSQL persistence layers. By enforcing clean abstraction, parameterized queries, and defensive input validation, the system exceeds ordinary academic standards.
+                </p>
+                <p>
+                    <strong>Future Enhancements:</strong> Expanding to multi-campus cloud hosting, biometric RFID attendance logging, and automated grade sheet PDF exports.
+                </p>
+
+                <br><br>
+                <div style="display: flex; justify-content: space-between; text-align: center; margin-top: 2rem;">
+                    <div>
+                        ____________________________________<br>
+                        <strong>Candidate Signature</strong><br>
+                        [STUDENT_NAME_PLACEHOLDER]
+                    </div>
+                    <div>
+                        ____________________________________<br>
+                        <strong>Supervisor Signature</strong><br>
+                        [FACULTY_NAME_PLACEHOLDER]
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <span>Verification Results &amp; Final Sign-Off</span>
+                <span>Page 8</span>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
